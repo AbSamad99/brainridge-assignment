@@ -1,0 +1,32 @@
+.transactions {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  .action-buttons {
+    width: 320px;
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 0;
+    }
+
+    .filter-reset {
+      align-self: flex-end;
+    }
+  }
+}

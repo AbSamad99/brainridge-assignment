@@ -1,0 +1,19 @@
+<mat-card class="transaction-details" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title
+      >Transaction Id: {{ transaction?.transactionsId }}</mat-card-title
+    >
+    <mat-card-subtitle
+      >Description: {{ transaction?.description }}</mat-card-subtitle
+    >
+    <mat-card-subtitle
+      >From Account: {{ transaction?.fromAccountId }}</mat-card-subtitle
+    >
+    <mat-card-subtitle
+      >To Account: {{ transaction?.toAccountId }}</mat-card-subtitle
+    >
+    <mat-card-subtitle
+      >Amount Transferred: {{ transaction?.amount }}</mat-card-subtitle
+    >
+  </mat-card-header>
+</mat-card>

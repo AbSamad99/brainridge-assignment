@@ -1,0 +1,21 @@
+.accounts {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  .accounts-form {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    // padding: 20px;
+    gap: 10px;
+  }
+
+  .create-button {
+    align-self: center;
+    display: flex;
+    gap: 10px;
+  }
+}

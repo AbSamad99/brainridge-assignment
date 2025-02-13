@@ -1,0 +1,63 @@
+<div class="accounts">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title> Create Account </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="accountForm" class="accounts-form">
+        <mat-form-field>
+          <mat-label>Account Owner</mat-label>
+          <input matInput formControlName="owner" placeholder="Enter name" />
+          <mat-error *ngIf="accountForm.get('owner')?.hasError('required')">
+            Owner name is required.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Initial Balance</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="balance"
+            placeholder="Enter initial balance"
+          />
+          <mat-error *ngIf="accountForm.get('balance')?.hasError('required')">
+            Balance is required.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              accountForm.get('balance')?.hasError('min') ||
+              accountForm.get('balance')?.hasError('max')
+            "
+          >
+            Balance must be between 0 and 10000.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-label>Account Type</mat-label>
+        <mat-radio-group formControlName="accountType" class="radio-group">
+          <mat-radio-button *ngFor="let type of accountTypes" [value]="type">
+            {{ type | titlecase }}
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <mat-card-actions class="create-button">
+          <app-custom-button
+            color="#d11919"
+            label="Cancel"
+            routerLink="/account"
+          />
+          <app-custom-button
+            label="Create"
+            [color]="
+              accountForm.get('accountType')?.value == 'savings'
+                ? '#6460f7'
+                : '#32a852'
+            "
+            (click)="createAccount()"
+          />
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,101 @@
+<div class="transactions">
+  <mat-card class="transaction-card">
+    <mat-card-header>
+      <mat-card-title> Create Transaction </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="transactionForm" class="transaction-form">
+        <mat-form-field appearance="outline">
+          <mat-label>From Account</mat-label>
+          <mat-select formControlName="fromAccountId">
+            <mat-option
+              *ngFor="let account of accounts"
+              [value]="account.accountId"
+            >
+              {{ account.owner }} ({{ account.accountId }}) -
+              {{ account.accountType | titlecase }} [${{ account.balance }}]
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="transactionForm.get('fromAccountId')?.hasError('required')"
+          >
+            Please select an account.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>To Account</mat-label>
+          <mat-select formControlName="toAccountId">
+            <mat-option
+              *ngFor="let account of accounts"
+              [value]="account.accountId"
+            >
+              {{ account.owner }} ({{ account.accountId }}) -
+              {{ account.accountType | titlecase }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="transactionForm.get('toAccountId')?.hasError('required')"
+          >
+            Please select an account.
+          </mat-error>
+          <mat-error
+            *ngIf="transactionForm.get('toAccountId')?.hasError('sameAccount')"
+          >
+            From and To accounts cannot be the same.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Amount</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="amount"
+            min="1"
+            placeholder="Enter amount"
+          />
+          <mat-error
+            *ngIf="transactionForm.get('amount')?.hasError('required')"
+          >
+            Amount is required.
+          </mat-error>
+          <mat-error *ngIf="transactionForm.get('amount')?.hasError('min')">
+            Amount must be greater than zero.
+          </mat-error>
+          <mat-error
+            *ngIf="transactionForm.get('amount')?.hasError('invalidAmount')"
+          >
+            Amount exceeds available balance.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            formControlName="description"
+            placeholder="Enter transaction description"
+          ></textarea>
+          <mat-error
+            *ngIf="transactionForm.get('description')?.hasError('required')"
+          >
+            Description is required.
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions class="create-button">
+      <app-custom-button
+        color="#d11919"
+        label="Cancel"
+        routerLink="/transaction"
+      />
+      <app-custom-button
+        color="#32a852"
+        label="Create"
+        (click)="createTransaction()"
+      />
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,11 @@
+<div class="accounts">
+  <div class="action-buttons">
+    <app-custom-button label="New Account" routerLink="/account/create" />
+    <app-custom-button
+      color="#edaf13"
+      label="View Transactions"
+      routerLink="/transaction"
+    />
+  </div>
+  <app-account-details *ngFor="let account of accounts" [account]="account" />
+</div>

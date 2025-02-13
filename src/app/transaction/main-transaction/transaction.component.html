@@ -1,0 +1,61 @@
+<div class="transactions">
+  <div class="filter-group">
+    <div class="filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by Description</mat-label>
+        <input matInput type="text" [(ngModel)]="filterDescription" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by From Account</mat-label>
+        <mat-select [(ngModel)]="filterFromAccountId">
+          <mat-option [value]="undefined">None</mat-option>
+          <mat-option
+            *ngFor="let account of accounts"
+            [value]="account.accountId"
+          >
+            {{ account.owner }} - {{ account.accountType | titlecase }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by To Account</mat-label>
+        <mat-select [(ngModel)]="filterToAccountId">
+          <mat-option [value]="undefined">None</mat-option>
+          <mat-option
+            *ngFor="let account of accounts"
+            [value]="account.accountId"
+          >
+            {{ account.owner }} - {{ account.accountType | titlecase }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <app-custom-button
+      color="#d11919"
+      label="Reset"
+      (click)="resetFilters()"
+      class="filter-reset"
+    />
+  </div>
+
+  <div class="action-buttons">
+    <app-custom-button
+      color="secondary"
+      label="New Transaction"
+      routerLink="/transaction/create"
+    />
+    <app-custom-button
+      color="#edaf13"
+      label="View Accounts"
+      routerLink="/account"
+    />
+  </div>
+
+  <app-transaction-details
+    *ngFor="let transaction of filteredTransactions()"
+    [transaction]="transaction"
+  />
+</div>
