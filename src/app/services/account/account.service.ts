@@ -6,25 +6,11 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AccountService {
-  private accountsSubject = new BehaviorSubject<Account[]>([
-    // {
-    //   accountId: 1,
-    //   accountType: 'chequing',
-    //   balance: 1000,
-    //   owner: 'Abdussamad',
-    // },
-    // {
-    //   accountId: 2,
-    //   accountType: 'savings',
-    //   balance: 5000,
-    //   owner: 'Abdussamad',
-    // },
-  ]);
+  private accountsSubject = new BehaviorSubject<Account[]>([]);
   accounts$ = this.accountsSubject.asObservable();
 
   constructor() {
     const storedAccountsString = localStorage.getItem('accounts');
-    console.log(localStorage);
     if (storedAccountsString)
       this.accountsSubject.next(JSON.parse(storedAccountsString));
   }

@@ -1,6 +1,6 @@
 <div class="accounts">
   <mat-card>
-    <mat-card-header>
+    <mat-card-header class="create-account-header">
       <mat-card-title> Create Account </mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -10,6 +10,14 @@
           <input matInput formControlName="owner" placeholder="Enter name" />
           <mat-error *ngIf="accountForm.get('owner')?.hasError('required')">
             Owner name is required.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              accountForm.get('owner')?.hasError('maxlength') ||
+              accountForm.get('owner')?.hasError('minlength')
+            "
+          >
+            Owner name must be between 5 and 50 characters.
           </mat-error>
         </mat-form-field>
 

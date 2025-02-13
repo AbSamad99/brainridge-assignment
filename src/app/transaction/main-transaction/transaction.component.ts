@@ -42,7 +42,7 @@ export class TransactionComponent {
     });
   }
 
-  resetFilters(): void {
+  resetFilters() {
     this.filterDescription = '';
     this.filterFromAccountId = undefined;
     this.filterToAccountId = undefined;

@@ -1,6 +1,6 @@
 <div class="transactions">
   <mat-card class="transaction-card">
-    <mat-card-header>
+    <mat-card-header class="create-transaction-header">
       <mat-card-title> Create Transaction </mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -68,6 +68,13 @@
           >
             Amount exceeds available balance.
           </mat-error>
+          <mat-error
+            *ngIf="
+              transactionForm.get('amount')?.hasError('newBalanceExceeded')
+            "
+          >
+            Destination's account balance will exceed 10000.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -81,6 +88,11 @@
             *ngIf="transactionForm.get('description')?.hasError('required')"
           >
             Description is required.
+          </mat-error>
+          <mat-error
+            *ngIf="transactionForm.get('description')?.hasError('maxlength')"
+          >
+            Description cannot exceed 100 characters.
           </mat-error>
         </mat-form-field>
       </form>

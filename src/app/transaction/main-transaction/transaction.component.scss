@@ -1,4 +1,5 @@
 .transactions {
+  margin-top: 20px;
   height: 250px;
   display: flex;
   flex-direction: column;
@@ -28,5 +29,15 @@
     .filter-reset {
       align-self: flex-end;
     }
+  }
+
+  .allow-overflow {
+    padding: 10px;
+    margin-top: 10px;
+    min-height: 60vh;
+    min-width: 30vw;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
   }
 }

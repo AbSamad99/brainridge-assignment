@@ -54,8 +54,10 @@
     />
   </div>
 
-  <app-transaction-details
-    *ngFor="let transaction of filteredTransactions()"
-    [transaction]="transaction"
-  />
+  <mat-card class="allow-overflow">
+    <app-transaction-details
+      *ngFor="let transaction of filteredTransactions()"
+      [transaction]="transaction"
+    />
+  </mat-card>
 </div>

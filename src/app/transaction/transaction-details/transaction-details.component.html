@@ -1,19 +1,30 @@
 <mat-card class="transaction-details" appearance="outlined">
   <mat-card-header>
-    <mat-card-title
-      >Transaction Id: {{ transaction?.transactionsId }}</mat-card-title
-    >
-    <mat-card-subtitle
-      >Description: {{ transaction?.description }}</mat-card-subtitle
-    >
-    <mat-card-subtitle
-      >From Account: {{ transaction?.fromAccountId }}</mat-card-subtitle
-    >
-    <mat-card-subtitle
-      >To Account: {{ transaction?.toAccountId }}</mat-card-subtitle
-    >
-    <mat-card-subtitle
-      >Amount Transferred: {{ transaction?.amount }}</mat-card-subtitle
-    >
+    <mat-card-title class="header-row">
+      <mat-icon>receipt_long</mat-icon>
+      <span class="transaction-id"
+        >Transaction Id: {{ transaction?.transactionsId }}</span
+      >
+    </mat-card-title>
   </mat-card-header>
+  <mat-card-content class="transaction-group">
+    <div class="details-row">
+      <div class="detail">
+        <mat-icon>description</mat-icon> Description:
+        {{ transaction?.description }}
+      </div>
+      <div class="detail">
+        <mat-icon>account_circle</mat-icon> From Account:
+        {{ transaction?.fromAccountId }}
+      </div>
+      <div class="detail">
+        <mat-icon>account_balance</mat-icon> To Account:
+        {{ transaction?.toAccountId }}
+      </div>
+      <div class="detail amount-transferred">
+        <mat-icon>attach_money</mat-icon> Amount:
+        {{ transaction?.amount }}
+      </div>
+    </div>
+  </mat-card-content>
 </mat-card>

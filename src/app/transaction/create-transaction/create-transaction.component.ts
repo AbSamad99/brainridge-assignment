@@ -28,7 +28,7 @@ export class CreateTransactionComponent {
       fromAccountId: ['', Validators.required],
       toAccountId: ['', Validators.required],
       amount: [0, Validators.required],
-      description: ['', Validators.required],
+      description: ['', [Validators.required, Validators.maxLength(100)]],
     });
 
     this.transactionForm.get('fromAccountId')?.valueChanges.subscribe(() => {
@@ -59,6 +59,10 @@ export class CreateTransactionComponent {
     const amount = this.transactionForm.get('amount')?.value;
     if (fromAccount.balance - amount < 0 || toAccount.balance + amount > 10000)
       this.transactionForm.get('amount')?.setErrors({ invalidAmount: true });
+    if (toAccount.balance + amount > 10000)
+      this.transactionForm
+        .get('amount')
+        ?.setErrors({ newBalanceExceeded: true });
   }
 
   validateSameAccount() {

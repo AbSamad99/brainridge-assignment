@@ -1,9 +1,18 @@
 .transactions {
-  height: 250px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+
+  .create-transaction-header {
+    margin-bottom: 20px;
+
+    mat-card-title {
+      font-weight: 600;
+      font-size: 1.7rem;
+    }
+  }
 
   .transaction-card {
     .transaction-form {

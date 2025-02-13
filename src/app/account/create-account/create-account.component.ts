@@ -19,7 +19,14 @@ export class CreateAccountComponent {
     private router: Router
   ) {
     this.accountForm = this.fb.group({
-      owner: ['', Validators.required],
+      owner: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(50),
+        ],
+      ],
       balance: [
         0,
         [Validators.required, Validators.min(0), Validators.max(10000)],
