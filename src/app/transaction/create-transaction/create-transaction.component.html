@@ -7,7 +7,7 @@
       <form [formGroup]="transactionForm" class="transaction-form">
         <mat-form-field appearance="outline">
           <mat-label>From Account</mat-label>
-          <mat-select formControlName="fromAccountId">
+          <mat-select [formControl]="fromAccountId">
             <mat-option
               *ngFor="let account of accounts"
               [value]="account.accountId"
@@ -16,16 +16,14 @@
               {{ account.accountType | titlecase }} [${{ account.balance }}]
             </mat-option>
           </mat-select>
-          <mat-error
-            *ngIf="transactionForm.get('fromAccountId')?.hasError('required')"
-          >
+          <mat-error *ngIf="fromAccountId.hasError('required')">
             Please select an account.
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>To Account</mat-label>
-          <mat-select formControlName="toAccountId">
+          <mat-select [formControl]="toAccountId">
             <mat-option
               *ngFor="let account of accounts"
               [value]="account.accountId"
@@ -34,14 +32,10 @@
               {{ account.accountType | titlecase }}
             </mat-option>
           </mat-select>
-          <mat-error
-            *ngIf="transactionForm.get('toAccountId')?.hasError('required')"
-          >
+          <mat-error *ngIf="toAccountId.hasError('required')">
             Please select an account.
           </mat-error>
-          <mat-error
-            *ngIf="transactionForm.get('toAccountId')?.hasError('sameAccount')"
-          >
+          <mat-error *ngIf="toAccountId.hasError('sameAccount')">
             From and To accounts cannot be the same.
           </mat-error>
         </mat-form-field>
@@ -51,28 +45,20 @@
           <input
             matInput
             type="number"
-            formControlName="amount"
+            [formControl]="amount"
             min="1"
             placeholder="Enter amount"
           />
-          <mat-error
-            *ngIf="transactionForm.get('amount')?.hasError('required')"
-          >
+          <mat-error *ngIf="amount.hasError('required')">
             Amount is required.
           </mat-error>
-          <mat-error *ngIf="transactionForm.get('amount')?.hasError('min')">
+          <mat-error *ngIf="amount.hasError('min')">
             Amount must be greater than zero.
           </mat-error>
-          <mat-error
-            *ngIf="transactionForm.get('amount')?.hasError('invalidAmount')"
-          >
+          <mat-error *ngIf="amount.hasError('invalidAmount')">
             Amount exceeds available balance.
           </mat-error>
-          <mat-error
-            *ngIf="
-              transactionForm.get('amount')?.hasError('newBalanceExceeded')
-            "
-          >
+          <mat-error *ngIf="amount.hasError('newBalanceExceeded')">
             Destination's account balance will exceed 10000.
           </mat-error>
         </mat-form-field>
@@ -81,7 +67,7 @@
           <mat-label>Description</mat-label>
           <textarea
             matInput
-            formControlName="description"
+            [formControl]="description"
             placeholder="Enter transaction description"
           ></textarea>
           <mat-error

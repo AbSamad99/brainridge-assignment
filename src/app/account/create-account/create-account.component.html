@@ -7,15 +7,12 @@
       <form [formGroup]="accountForm" class="accounts-form">
         <mat-form-field>
           <mat-label>Account Owner</mat-label>
-          <input matInput formControlName="owner" placeholder="Enter name" />
-          <mat-error *ngIf="accountForm.get('owner')?.hasError('required')">
+          <input matInput [formControl]="owner" placeholder="Enter name" />
+          <mat-error *ngIf="owner.hasError('required')">
             Owner name is required.
           </mat-error>
           <mat-error
-            *ngIf="
-              accountForm.get('owner')?.hasError('maxlength') ||
-              accountForm.get('owner')?.hasError('minlength')
-            "
+            *ngIf="owner.hasError('maxlength') || owner.hasError('minlength')"
           >
             Owner name must be between 5 and 50 characters.
           </mat-error>
@@ -26,24 +23,20 @@
           <input
             matInput
             type="number"
-            formControlName="balance"
+            [formControl]="balance"
             placeholder="Enter initial balance"
+            min="0"
           />
-          <mat-error *ngIf="accountForm.get('balance')?.hasError('required')">
+          <mat-error *ngIf="balance.hasError('required')">
             Balance is required.
           </mat-error>
-          <mat-error
-            *ngIf="
-              accountForm.get('balance')?.hasError('min') ||
-              accountForm.get('balance')?.hasError('max')
-            "
-          >
+          <mat-error *ngIf="balance.hasError('min') || balance.hasError('max')">
             Balance must be between 0 and 10000.
           </mat-error>
         </mat-form-field>
 
         <mat-label>Account Type</mat-label>
-        <mat-radio-group formControlName="accountType" class="radio-group">
+        <mat-radio-group [formControl]="accountType" class="radio-group">
           <mat-radio-button *ngFor="let type of accountTypes" [value]="type">
             {{ type | titlecase }}
           </mat-radio-button>
@@ -57,11 +50,7 @@
           />
           <app-custom-button
             label="Create"
-            [color]="
-              accountForm.get('accountType')?.value == 'savings'
-                ? '#6460f7'
-                : '#32a852'
-            "
+            [color]="accountType.value == 'savings' ? '#6460f7' : '#32a852'"
             (click)="createAccount()"
           />
         </mat-card-actions>

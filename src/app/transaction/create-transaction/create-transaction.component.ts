@@ -14,7 +14,19 @@ import { Router } from '@angular/router';
 })
 export class CreateTransactionComponent {
   accounts: Account[] = [];
-  transactionForm: FormGroup;
+  fromAccountId = this.fb.control('', Validators.required);
+  toAccountId = this.fb.control('', Validators.required);
+  amount = this.fb.control(0, Validators.required);
+  description = this.fb.control('', [
+    Validators.required,
+    Validators.maxLength(100),
+  ]);
+  transactionForm: FormGroup = this.fb.group({
+    fromAccountId: ['', Validators.required],
+    toAccountId: ['', Validators.required],
+    amount: [0, Validators.required],
+    description: ['', [Validators.required, Validators.maxLength(100)]],
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -24,53 +36,41 @@ export class CreateTransactionComponent {
   ) {
     accountService.accounts$.subscribe((accs) => (this.accounts = accs));
 
-    this.transactionForm = this.fb.group({
-      fromAccountId: ['', Validators.required],
-      toAccountId: ['', Validators.required],
-      amount: [0, Validators.required],
-      description: ['', [Validators.required, Validators.maxLength(100)]],
-    });
-
-    this.transactionForm.get('fromAccountId')?.valueChanges.subscribe(() => {
+    this.fromAccountId.valueChanges.subscribe((val) => {
+      console.log(val);
       this.validateAmount();
       this.validateSameAccount();
     });
-    this.transactionForm.get('toAccountId')?.valueChanges.subscribe(() => {
+    this.toAccountId.valueChanges.subscribe((val) => {
       this.validateAmount();
       this.validateSameAccount();
     });
-    this.transactionForm
-      .get('amount')
-      ?.valueChanges.pipe(debounceTime(300))
-      .subscribe(() => {
-        this.validateAmount();
-      });
+    this.amount.valueChanges.pipe(debounceTime(300)).subscribe(() => {
+      this.validateAmount();
+    });
   }
 
   validateAmount() {
-    const fromAccountId = this.transactionForm.get('fromAccountId')?.value;
+    const fromAccountId = this.fromAccountId.value || -1;
     const fromAccount = this.accounts.find(
       (acc) => acc.accountId == fromAccountId
     );
-    const toAccountId = this.transactionForm.get('toAccountId')?.value;
+    const toAccountId = this.toAccountId.value || -1;
     const toAccount = this.accounts.find((acc) => acc.accountId == toAccountId);
     if (!fromAccount || !toAccount) return;
-
-    const amount = this.transactionForm.get('amount')?.value;
+    const amount = this.amount.value || -1;
     if (fromAccount.balance - amount < 0 || toAccount.balance + amount > 10000)
-      this.transactionForm.get('amount')?.setErrors({ invalidAmount: true });
+      this.amount.setErrors({ invalidAmount: true });
     if (toAccount.balance + amount > 10000)
-      this.transactionForm
-        .get('amount')
-        ?.setErrors({ newBalanceExceeded: true });
+      this.amount.setErrors({ newBalanceExceeded: true });
   }
 
   validateSameAccount() {
-    const fromAccountId = this.transactionForm.get('fromAccountId')?.value;
-    const toAccountId = this.transactionForm.get('toAccountId')?.value;
+    const fromAccountId = this.fromAccountId.value;
+    const toAccountId = this.toAccountId.value;
     if (fromAccountId == toAccountId)
-      this.transactionForm.get('toAccountId')?.setErrors({ sameAccount: true });
-    else this.transactionForm.get('toAccountId')?.setErrors(null);
+      this.toAccountId.setErrors({ sameAccount: true });
+    else this.toAccountId.setErrors(null);
   }
 
   createTransaction() {
@@ -83,6 +83,23 @@ export class CreateTransactionComponent {
       this.transactionService.addTransaction(newTransaction);
 
       this.router.navigate(['/transaction']);
+    } else {
+      if (!this.fromAccountId.value) {
+        this.fromAccountId.markAsTouched();
+        this.fromAccountId.setErrors({ required: true });
+      }
+      if (!this.toAccountId.value) {
+        this.toAccountId.markAsTouched();
+        this.toAccountId.setErrors({ required: true });
+      }
+      if (!this.amount.value) {
+        this.amount.markAsTouched();
+        this.amount.setErrors({ min: true });
+      }
+      if (!this.description.value) {
+        this.description.markAsTouched();
+        this.description.setErrors({ required: true });
+      }
     }
   }
 }

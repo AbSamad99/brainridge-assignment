@@ -10,30 +10,30 @@ import { Router } from '@angular/router';
   styleUrl: './create-account.component.scss',
 })
 export class CreateAccountComponent {
-  accountForm: FormGroup;
+  owner = this.fb.control('', [
+    Validators.required,
+    Validators.minLength(5),
+    Validators.maxLength(50),
+  ]);
+  balance = this.fb.control(0, [
+    Validators.required,
+    Validators.min(0),
+    Validators.max(10000),
+  ]);
+  accountType = this.fb.control('chequing', Validators.required);
+  accountForm: FormGroup = this.fb.group({
+    owner: this.owner,
+    balance: this.balance,
+    accountType: this.accountType,
+  });
+
   accountTypes = ['chequing', 'savings'];
 
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
     private router: Router
-  ) {
-    this.accountForm = this.fb.group({
-      owner: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(50),
-        ],
-      ],
-      balance: [
-        0,
-        [Validators.required, Validators.min(0), Validators.max(10000)],
-      ],
-      accountType: ['chequing', Validators.required],
-    });
-  }
+  ) {}
 
   createAccount() {
     if (this.accountForm.valid) {
