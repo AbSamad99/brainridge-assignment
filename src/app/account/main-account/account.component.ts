@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AccountComponent {
   accounts: Account[] = [];
+  filteredAccounts: Account[] = [];
 
   accountTypes: { id: number; label: string }[] = [
     { id: 1, label: 'savings' },
@@ -20,11 +21,14 @@ export class AccountComponent {
   accountTypeFilter: string = '';
 
   constructor(private accountService: AccountService, private router: Router) {
-    this.accountService.accounts$.subscribe((acc) => (this.accounts = acc));
+    this.accountService.accounts$.subscribe((acc) => {
+      this.accounts = acc;
+      this.updateFilteredAccounts();
+    });
   }
 
-  getFilteredAccounts() {
-    return this.accounts.filter((acc) => {
+  updateFilteredAccounts() {
+    this.filteredAccounts = this.accounts.filter((acc) => {
       return (
         (this.owner == '' ||
           acc.owner.toLowerCase().includes(this.owner.toLowerCase())) &&
@@ -38,5 +42,6 @@ export class AccountComponent {
   resetFilters(): void {
     this.owner = '';
     this.accountTypeFilter = '';
+    this.updateFilteredAccounts();
   }
 }

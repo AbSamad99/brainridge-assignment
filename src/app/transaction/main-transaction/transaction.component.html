@@ -1,40 +1,41 @@
 <div class="transactions">
+  <h1>Transactions</h1>
   <div class="filter-group">
-    <div class="filters">
+    <div class="filters density-settings">
       <mat-form-field appearance="outline">
         <mat-label>Filter by Description</mat-label>
-        <input matInput type="text" [(ngModel)]="filterDescription" />
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="filterDescription"
+          (ngModelChange)="updateFilteredTransactions()"
+        />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Filter by From Account</mat-label>
-        <mat-select [(ngModel)]="filterFromAccountId">
+        <mat-label>Filter by Account</mat-label>
+        <mat-select
+          [(ngModel)]="filterAccountId"
+          (selectionChange)="
+            updateFilteredTransactions(); updateParam(filterAccountId)
+          "
+        >
           <mat-option [value]="undefined">None</mat-option>
           <mat-option
             *ngFor="let account of accounts"
             [value]="account.accountId"
           >
-            {{ account.owner }} - {{ account.accountType | titlecase }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Filter by To Account</mat-label>
-        <mat-select [(ngModel)]="filterToAccountId">
-          <mat-option [value]="undefined">None</mat-option>
-          <mat-option
-            *ngFor="let account of accounts"
-            [value]="account.accountId"
-          >
-            {{ account.owner }} - {{ account.accountType | titlecase }}
+            {{ account.owner }} ({{ account.accountId }}) -
+            {{ account.accountType | titlecase }}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
     <app-custom-button
-      color="#d11919"
+      backgroundColor="#eb0707"
+      color="#ffffff"
+      size="sm"
       label="Reset"
       (click)="resetFilters()"
       class="filter-reset"
@@ -43,12 +44,15 @@
 
   <div class="action-buttons">
     <app-custom-button
-      color="secondary"
+      backgroundColor="#32a852"
+      color="#ffffff"
+      size="md"
       label="New Transaction"
       routerLink="/transaction/create"
     />
     <app-custom-button
-      color="#edaf13"
+      backgroundColor="#e0ecb2"
+      size="md"
       label="View Accounts"
       routerLink="/account"
     />
@@ -56,8 +60,11 @@
 
   <mat-card class="allow-overflow" appearance="outlined">
     <app-transaction-details
-      *ngFor="let transaction of filteredTransactions()"
+      *ngFor="let transaction of filteredTransactions"
       [transaction]="transaction"
     />
+    <div class="no-transactions" *ngIf="!filteredTransactions.length">
+      <span>No transactions found.</span>
+    </div>
   </mat-card>
 </div>

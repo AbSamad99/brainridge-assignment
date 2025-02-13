@@ -1,10 +1,10 @@
 .transaction-details {
   width: 400px;
   margin: 10px;
-  padding: 20px;
   border-radius: 10px; // Rounded corners
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Subtle shadow
   transition: transform 0.2s ease, box-shadow 0.2s ease; // Smooth transition for hover effect
+  background-color: #e0efed;
 
   &:hover {
     transform: translateY(-5px); // Lift effect on hover

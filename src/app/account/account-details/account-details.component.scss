@@ -1,10 +1,10 @@
 .account-details {
   width: 400px;
   margin: 10px;
-  padding: 20px;
   border-radius: 10px; // Rounded corners
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Subtle shadow
   transition: transform 0.2s ease, box-shadow 0.2s ease; // Smooth transition for hover effect
+  background-color: #e0ecb2;
 
   &:hover {
     transform: translateY(-5px); // Lift effect on hover
@@ -19,6 +19,10 @@
       font-size: 1.6rem;
     }
     margin-bottom: 10px;
+  }
+
+  .header-row:hover {
+    cursor: pointer;
   }
 
   .account-title {

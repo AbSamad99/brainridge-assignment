@@ -1,3 +1,7 @@
-<button mat-stroked-button>
+<button
+  mat-stroked-button
+  [ngStyle]="{ backgroundColor: backgroundColor }"
+  [ngClass]="size"
+>
   <span [ngStyle]="{ color: color }">{{ label }}</span>
 </button>

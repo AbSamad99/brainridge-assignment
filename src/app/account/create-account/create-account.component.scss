@@ -5,26 +5,34 @@
   justify-content: center;
   align-items: center;
 
-  .create-account-header {
-    margin-bottom: 20px;
+  .accounts-card-wrapper {
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 1px;
 
-    mat-card-title {
-      font-weight: 600;
-      font-size: 1.7rem;
+    .accounts-card {
+      .create-account-header {
+        margin-bottom: 20px;
+
+        mat-card-title {
+          font-weight: 600;
+          font-size: 1.7rem;
+        }
+      }
+
+      .accounts-form {
+        display: flex;
+        flex-direction: column;
+        width: 500px;
+        // padding: 20px;
+        gap: 10px;
+      }
+
+      .create-button {
+        align-self: center;
+        display: flex;
+        gap: 40px;
+      }
     }
-  }
-
-  .accounts-form {
-    display: flex;
-    flex-direction: column;
-    width: 500px;
-    // padding: 20px;
-    gap: 10px;
-  }
-
-  .create-button {
-    align-self: center;
-    display: flex;
-    gap: 10px;
   }
 }

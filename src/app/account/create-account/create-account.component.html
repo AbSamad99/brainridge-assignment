@@ -1,60 +1,70 @@
 <div class="accounts">
-  <mat-card>
-    <mat-card-header class="create-account-header">
-      <mat-card-title> Create Account </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form [formGroup]="accountForm" class="accounts-form">
-        <mat-form-field>
-          <mat-label>Account Owner</mat-label>
-          <input matInput [formControl]="owner" placeholder="Enter name" />
-          <mat-error *ngIf="owner.hasError('required')">
-            Owner name is required.
-          </mat-error>
-          <mat-error
-            *ngIf="owner.hasError('maxlength') || owner.hasError('minlength')"
-          >
-            Owner name must be between 5 and 50 characters.
-          </mat-error>
-        </mat-form-field>
+  <div class="accounts-card-wrapper">
+    <mat-card class="accounts-card">
+      <mat-card-header class="create-account-header">
+        <mat-card-title> Create Account </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="accountForm" class="accounts-form">
+          <mat-form-field>
+            <mat-label>Account Owner</mat-label>
+            <input matInput [formControl]="owner" placeholder="Enter name" />
+            <mat-error *ngIf="owner.hasError('required')">
+              Owner name is required.
+            </mat-error>
+            <mat-error
+              *ngIf="owner.hasError('maxlength') || owner.hasError('minlength')"
+            >
+              Owner name must be between 5 and 50 characters.
+            </mat-error>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Initial Balance</mat-label>
-          <input
-            matInput
-            type="number"
-            [formControl]="balance"
-            placeholder="Enter initial balance"
-            min="0"
-          />
-          <mat-error *ngIf="balance.hasError('required')">
-            Balance is required.
-          </mat-error>
-          <mat-error *ngIf="balance.hasError('min') || balance.hasError('max')">
-            Balance must be between 0 and 10000.
-          </mat-error>
-        </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Initial Balance</mat-label>
+            <input
+              matInput
+              type="number"
+              [formControl]="balance"
+              placeholder="Enter initial balance"
+              min="0"
+            />
+            <mat-error *ngIf="balance.hasError('required')">
+              Balance is required.
+            </mat-error>
+            <mat-error
+              *ngIf="balance.hasError('min') || balance.hasError('max')"
+            >
+              Balance must be between 0 and 10000.
+            </mat-error>
+          </mat-form-field>
 
-        <mat-label>Account Type</mat-label>
-        <mat-radio-group [formControl]="accountType" class="radio-group">
-          <mat-radio-button *ngFor="let type of accountTypes" [value]="type">
-            {{ type | titlecase }}
-          </mat-radio-button>
-        </mat-radio-group>
+          <mat-label>Account Type</mat-label>
+          <mat-radio-group [formControl]="accountType" class="radio-group">
+            <mat-radio-button *ngFor="let type of accountTypes" [value]="type">
+              {{ type | titlecase }}
+            </mat-radio-button>
+          </mat-radio-group>
 
-        <mat-card-actions class="create-button">
-          <app-custom-button
-            color="#d11919"
-            label="Cancel"
-            routerLink="/account"
-          />
-          <app-custom-button
-            label="Create"
-            [color]="accountType.value == 'savings' ? '#6460f7' : '#32a852'"
-            (click)="createAccount()"
-          />
-        </mat-card-actions>
-      </form>
-    </mat-card-content>
-  </mat-card>
+          <mat-card-actions class="create-button">
+            <app-custom-button
+              color="#ffffff"
+              backgroundColor="#d11919"
+              size="lg"
+              label="Cancel"
+              routerLink="/account"
+            />
+            <app-custom-button
+              [color]="accountType.value == 'chequing' ? '#ffffff' : '#32a852'"
+              [backgroundColor]="
+                accountType.value == 'chequing' ? '#32a852' : ''
+              "
+              size="lg"
+              label="Create"
+              (click)="createAccount()"
+            />
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

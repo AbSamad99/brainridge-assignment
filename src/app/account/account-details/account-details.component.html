@@ -1,6 +1,10 @@
 <mat-card class="account-details" appearance="outlined">
   <mat-card-header>
-    <mat-card-title class="header-row">
+    <mat-card-title
+      class="header-row"
+      routerLink="/transaction"
+      [queryParams]="{ accountId: account?.accountId }"
+    >
       <mat-icon>account_circle</mat-icon>
       <span class="account-title">Account Id: {{ account?.accountId }}</span>
     </mat-card-title>

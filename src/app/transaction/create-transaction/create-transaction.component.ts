@@ -22,10 +22,10 @@ export class CreateTransactionComponent {
     Validators.maxLength(100),
   ]);
   transactionForm: FormGroup = this.fb.group({
-    fromAccountId: ['', Validators.required],
-    toAccountId: ['', Validators.required],
-    amount: [0, Validators.required],
-    description: ['', [Validators.required, Validators.maxLength(100)]],
+    fromAccountId: this.fromAccountId,
+    toAccountId: this.toAccountId,
+    amount: this.amount,
+    description: this.description,
   });
 
   constructor(

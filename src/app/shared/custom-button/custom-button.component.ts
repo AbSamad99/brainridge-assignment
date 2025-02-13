@@ -9,4 +9,7 @@ export class CustomButtonComponent {
   @Input() label: string = 'Button';
   @Input() rounded: boolean = false;
   @Input() color: string = '';
+  @Input() accountType: string = 'chequing';
+  @Input() backgroundColor: string = '';
+  @Input() size: string = '';
 }

@@ -1,14 +1,23 @@
 <div class="accounts">
+  <h1>Accounts</h1>
   <div class="filter-group">
-    <div class="filters">
+    <div class="filters density-settings">
       <mat-form-field appearance="outline">
         <mat-label>Filter by Owner</mat-label>
-        <input matInput type="text" [(ngModel)]="owner" />
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="owner"
+          (ngModelChange)="updateFilteredAccounts()"
+        />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Filter by Account Type</mat-label>
-        <mat-select [(ngModel)]="accountTypeFilter">
+        <mat-select
+          [(ngModel)]="accountTypeFilter"
+          (selectionChange)="updateFilteredAccounts()"
+        >
           <mat-option [value]="">None</mat-option>
           <mat-option *ngFor="let type of accountTypes" [value]="type.label">
             {{ type.label | titlecase }}
@@ -18,16 +27,23 @@
     </div>
 
     <app-custom-button
-      color="#d11919"
+      backgroundColor="#eb0707"
+      color="#ffffff"
+      size="sm"
       label="Reset"
       (click)="resetFilters()"
       class="filter-reset"
     />
   </div>
   <div class="action-buttons">
-    <app-custom-button label="New Account" routerLink="/account/create" />
     <app-custom-button
-      color="#edaf13"
+      backgroundColor="#32a852"
+      color="#ffffff"
+      label="New Account"
+      routerLink="/account/create"
+    />
+    <app-custom-button
+      backgroundColor="#e0efed"
       label="View Transactions"
       routerLink="/transaction"
     />
@@ -35,8 +51,11 @@
 
   <mat-card class="allow-overflow" appearance="outlined">
     <app-account-details
-      *ngFor="let account of getFilteredAccounts()"
+      *ngFor="let account of filteredAccounts"
       [account]="account"
     />
+    <div class="no-transactions" *ngIf="!filteredAccounts.length">
+      <span>No Accounts found.</span>
+    </div>
   </mat-card>
 </div>
