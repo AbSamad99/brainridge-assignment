@@ -30,16 +30,15 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <app-custom-button
+        backgroundColor="#bd0a0a"
+        color="#ffffff"
+        size="sm"
+        label="Reset"
+        (click)="resetFilters()"
+        class="filter-reset"
+      />
     </div>
-
-    <app-custom-button
-      backgroundColor="#eb0707"
-      color="#ffffff"
-      size="sm"
-      label="Reset"
-      (click)="resetFilters()"
-      class="filter-reset"
-    />
   </div>
 
   <div class="action-buttons">

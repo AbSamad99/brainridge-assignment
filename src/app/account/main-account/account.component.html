@@ -22,18 +22,16 @@
           <mat-option *ngFor="let type of accountTypes" [value]="type.label">
             {{ type.label | titlecase }}
           </mat-option>
-        </mat-select>
-      </mat-form-field>
+        </mat-select> </mat-form-field
+      ><app-custom-button
+        backgroundColor="#bd0a0a"
+        color="#ffffff"
+        size="sm"
+        label="Reset"
+        (click)="resetFilters()"
+        class="filter-reset"
+      />
     </div>
-
-    <app-custom-button
-      backgroundColor="#eb0707"
-      color="#ffffff"
-      size="sm"
-      label="Reset"
-      (click)="resetFilters()"
-      class="filter-reset"
-    />
   </div>
   <div class="action-buttons">
     <app-custom-button

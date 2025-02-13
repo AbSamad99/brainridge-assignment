@@ -29,10 +29,13 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 0;
+      align-items: center;
+      justify-content: center;
     }
 
     .filter-reset {
-      align-self: flex-end;
+      position: relative;
+      bottom: 10px;
     }
   }
 
