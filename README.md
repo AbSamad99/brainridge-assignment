@@ -4,7 +4,7 @@
 
 1. Make sure you have `Node.js` installed on your machine.
 2. Run `npm install` to install all dependencies.
-3. Run `ng serve` to start the applicaiton.
+3. Run `ng serve` or `npm start` to start the applicaiton.
 4. Navigate to `http://localhost:4200/` in order to access the application.
 
 ## Application Features
